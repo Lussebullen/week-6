@@ -1,15 +1,12 @@
-import express, { Request, Response } from "express";
 import { z } from "zod";
 
+const usernameSchema = z.string().min(3).max(10);
 
 
-const app = express();
-app.use(express.json());
-
-const PORT = 3000;
-
-
-
-app.listen(PORT, (): void => {
-  console.log(`Server running at http://localhost:${PORT}`);
-});
+const validateUsername = usernameSchema.safeParse("Jo"); 
+if (!validateUsername.success) {
+  console.error(validateUsername.error);
+}
+else {
+  console.log("It's all fine", validateUsername.data);
+}
